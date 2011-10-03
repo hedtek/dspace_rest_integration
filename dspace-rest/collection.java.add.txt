@@ -1,0 +1,107 @@
+
+    /**
+     * Get collections in the system. These are alphabetically sorted by
+     * collection name.
+     *
+     * @param context
+     *            DSpace context object
+     * @param offset
+     *            starting row
+     *
+     * @return the collections in the system
+     * @throws SQLException
+     */
+    public static Collection[] findAll(Context context, int offset) throws SQLException {
+        TableRowIterator tri = DatabaseManager.queryTable(context, "collection",
+                "SELECT * FROM collection ORDER BY name OFFSET " + offset);
+
+        List<Collection> collections = new ArrayList<Collection>();
+
+        try {
+            while (tri.hasNext()) {
+                TableRow row = tri.next();
+
+                // First check the cache
+                Collection fromCache = (Collection) context.fromCache(
+                        Collection.class, row.getIntColumn("collection_id"));
+
+                if (fromCache != null) {
+                    collections.add(fromCache);
+                } else {
+                    collections.add(new Collection(context, row));
+                }
+            }
+        } finally {
+            // close the TableRowIterator to free up resources
+            if (tri != null) {
+                tri.close();
+            }
+        }
+
+        Collection[] collectionArray = new Collection[collections.size()];
+        collectionArray = (Collection[]) collections.toArray(collectionArray);
+
+        return collectionArray;
+    }
+
+    /**
+     * Get collections in the system. These are alphabetically sorted by
+     * collection name.
+     *
+     * @param context
+     *            DSpace context object
+     * @param offset
+     *            starting row
+     * @param limit
+     *            limit of collections to show
+     *
+     * @return the collections in the system
+     * @throws SQLException
+     */
+    public static Collection[] findAll(Context context, int offset, int limit) throws SQLException {
+        TableRowIterator tri = DatabaseManager.queryTable(context, "collection",
+                "SELECT * FROM collection ORDER BY name OFFSET " + offset + " LIMIT " + limit);
+
+        List<Collection> collections = new ArrayList<Collection>();
+
+        try {
+            while (tri.hasNext()) {
+                TableRow row = tri.next();
+
+                // First check the cache
+                Collection fromCache = (Collection) context.fromCache(
+                        Collection.class, row.getIntColumn("collection_id"));
+
+                if (fromCache != null) {
+                    collections.add(fromCache);
+                } else {
+                    collections.add(new Collection(context, row));
+                }
+            }
+        } finally {
+            // close the TableRowIterator to free up resources
+            if (tri != null) {
+                tri.close();
+            }
+        }
+
+        Collection[] collectionArray = new Collection[collections.size()];
+        collectionArray = (Collection[]) collections.toArray(collectionArray);
+
+        return collectionArray;
+    }
+
+    /**
+     * Get number of collections in the system.
+     *
+     * @param context
+     *            DSpace context object
+     *
+     * @return the number of collections in the system
+     * @throws SQLException
+     */
+    public static Long getNumCollections(Context context) throws SQLException {
+        TableRow row = DatabaseManager.querySingle(context, "SELECT count(*) as num FROM collection ");
+        return new Long(row.getLongColumn("num"));
+    }
+
