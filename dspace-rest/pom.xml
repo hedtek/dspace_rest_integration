@@ -93,6 +93,12 @@
       <scope>test</scope>
       <version>1.8.0.10</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.1.2</version>
+      <scope>test</scope>
+    </dependency>
     <!-- all in one requires the api and impl bundled in with the rest webapp -->
     <dependency>
       <groupId>org.dspace</groupId>

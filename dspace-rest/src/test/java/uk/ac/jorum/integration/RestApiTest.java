@@ -6,7 +6,8 @@ import static org.junit.Assert.assertEquals;
 public class RestApiTest extends RestApiBaseTest {
 
   @Test
-  public void something() {
+  public void something() throws Exception {
+    makeRequest("/communities");
     assertEquals(50, 50);
   }
 }
