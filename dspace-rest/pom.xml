@@ -195,6 +195,9 @@
               <goal>run</goal>
             </goals>
             <configuration>
+              <filters>
+                <filter>config/dspace-integ.cfg</filter>
+              </filters>
               <systemProperties>
                 <systemProperty>
                   <name>jetty.port</name>
