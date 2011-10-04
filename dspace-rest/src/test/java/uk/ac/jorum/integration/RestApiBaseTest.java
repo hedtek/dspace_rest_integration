@@ -10,6 +10,11 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.client.utils.URIUtils;
 import java.net.URI;
+import org.dspace.storage.rdbms.DatabaseManager;
+import org.dspace.core.ConfigurationManager;
+import org.dspace.browse.IndexBrowse;
+import java.io.File;
+import java.io.FileReader;
 
 public abstract class RestApiBaseTest {
   private static String apiHost = "localhost";
@@ -19,7 +24,19 @@ public abstract class RestApiBaseTest {
   private HttpClient client;
 
   @BeforeClass
-    public static void SetupDatabase() {
+    public static void SetupDatabase() throws Exception {
+      ConfigurationManager.loadConfig("config/dspace-integ.cfg");
+      IndexBrowse browse = new IndexBrowse();
+      browse.setDelete(true);
+      browse.setExecute(true);
+      browse.clearDatabase();
+      DatabaseManager.loadSql(loadClearSqlFile());
+
+      DatabaseManager.loadSql(loadSqlFile());
+      browse = new IndexBrowse();
+      browse.setRebuild(true);
+      browse.setExecute(true);
+      browse.initBrowse();
     }
 
   @Before
@@ -42,5 +59,13 @@ public abstract class RestApiBaseTest {
     HttpGet httpget = new HttpGet(uri);
     httpget.addHeader("Accept", "application/json");
     return client.execute(httpget, responseHandler);
+  }
+
+  private static FileReader loadSqlFile() throws Exception {
+    return new FileReader(new File("setup/dspacedb.sql").getCanonicalPath());
+  }
+
+  private static FileReader loadClearSqlFile() throws Exception {
+    return new FileReader(new File("setup/cleardb.sql").getCanonicalPath());
   }
 }
