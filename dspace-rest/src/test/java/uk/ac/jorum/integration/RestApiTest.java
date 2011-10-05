@@ -10,6 +10,6 @@ public class RestApiTest extends RestApiBaseTest {
     public void emptyCommunitiesList() throws Exception {
       loadFixture("emptyDatabase");
       String result = makeRequest("/communities");
-      assertThat(result, containsString("communities"));
+      assertThat(result, containsString("\"communities_collection\": [\n\n]}"));
     }
 }
