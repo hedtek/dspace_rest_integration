@@ -25,7 +25,7 @@ public abstract class RestApiBaseTest {
 
   @BeforeClass
     public static void SetupDatabase() throws Exception {
-      ConfigurationManager.loadConfig("config/dspace-integ.cfg");
+      ConfigurationManager.loadConfig("src/test/resources/config/dspace-integ-testrun.cfg");
       IndexBrowse browse = new IndexBrowse();
       browse.setDelete(true);
       browse.setExecute(true);
@@ -62,10 +62,10 @@ public abstract class RestApiBaseTest {
   }
 
   private static FileReader loadSqlFile() throws Exception {
-    return new FileReader(new File("setup/dspacedb.sql").getCanonicalPath());
+    return new FileReader(new File("src/test/resources/setup/dspacedb.sql").getCanonicalPath());
   }
 
   private static FileReader loadClearSqlFile() throws Exception {
-    return new FileReader(new File("setup/cleardb.sql").getCanonicalPath());
+    return new FileReader(new File("src/test/resources/setup/cleardb.sql").getCanonicalPath());
   }
 }

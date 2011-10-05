@@ -31,11 +31,9 @@
 
 
   <!-- Configuration Information -->
-
   <context-param>
     <param-name>dspace-config</param-name>
-    <param-value>config/dspace-integ.cfg</param-value>
-    <!-- <param-value>/dspace/config/dspace.cfg</param-value> -->
+    <param-value>dspace-rest/src/test/resources/config/dspace-integ.cfg</param-value>
   </context-param>
 
   <context-param>
