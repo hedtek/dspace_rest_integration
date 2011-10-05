@@ -61,6 +61,10 @@ public abstract class RestApiBaseTest {
     return client.execute(httpget, responseHandler);
   }
 
+  protected void loadFixture(String fixtureName) throws Exception {
+    DatabaseManager.loadSql(new FileReader(new File("src/test/resources/fixtures/" + fixtureName + ".sql")));
+  }
+
   private static FileReader loadSqlFile() throws Exception {
     return new FileReader(new File("src/test/resources/setup/dspacedb.sql").getCanonicalPath());
   }
