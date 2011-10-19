@@ -11,6 +11,7 @@ package uk.ac.jorum.integration;
 import org.junit.Before;
 import org.junit.After;
 import org.junit.BeforeClass;
+import org.junit.AfterClass;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -32,11 +33,6 @@ public abstract class RestApiBaseTest {
   private HttpClient client;
 
   @Before
-    public void loadDspaceConfig() throws Exception {
-      ConfigurationManager.loadConfig("src/test/resources/config/dspace-integ-testrun.cfg");
-    }
-
-  @Before
     public void ApiSetup() {
       client = new DefaultHttpClient();
     }
@@ -49,14 +45,6 @@ public abstract class RestApiBaseTest {
   protected String makeRequest(String endpoint) throws Exception {
     return makeRequest(endpoint, "");
   }
-  
-  protected static void clearDatabase() throws Exception {
-	  IndexBrowse browse = new IndexBrowse();
-      browse.setDelete(true);
-      browse.setExecute(true);
-      browse.clearDatabase();
-      DatabaseManager.loadSql(loadClearSqlFile());
-  }
 
   protected String makeRequest(String endpoint, String queryString) throws Exception {
     URI uri = URIUtils.createURI(apiProtocol, apiHost, apiPort, apiMountPoint + endpoint, queryString, "");
@@ -65,25 +53,13 @@ public abstract class RestApiBaseTest {
     httpget.addHeader("Accept", "application/json");
     return client.execute(httpget, responseHandler);
   }
-  
+
   protected static void loadDatabase(String filename) throws Exception {
-	DatabaseManager.loadSql(new FileReader(new File(filename).getCanonicalPath()));
-	IndexBrowse browse = new IndexBrowse();
-	browse.setRebuild(true);
-	browse.setExecute(true);
-	browse.initBrowse();
+    Runtime.getRuntime().exec("psql dspace-integ -U dspace-integ -w < " + filename); 
   }
 
   protected void loadFixture(String fixtureName) throws Exception {
-    clearDatabase();
+    loadDatabase("src/test/resources/setup/cleardb.sql");
     loadDatabase("src/test/resources/fixtures/" + fixtureName + ".sql");
-  }
-
-  private static FileReader loadSqlFile() throws Exception {
-    return new FileReader(new File("src/test/resources/setup/dspacedb.sql").getCanonicalPath());
-  }
-
-  private static FileReader loadClearSqlFile() throws Exception {
-    return new FileReader(new File("src/test/resources/setup/cleardb.sql").getCanonicalPath());
   }
 }

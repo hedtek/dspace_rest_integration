@@ -17,7 +17,7 @@ public class CommunityApiTest extends RestApiBaseTest {
 
   @Test
     public void emptyCommunitiesList() throws Exception {
-      loadFixture("emptyDatabase");
+      loadFixture("truncate");
       String result = makeRequest("/communities");
       assertThat(result, containsString("\"communities_collection\": [\n\n]}"));
     }

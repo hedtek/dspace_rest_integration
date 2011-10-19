@@ -212,15 +212,11 @@
                   <name>jetty.port</name>
                   <value>9090</value>
                 </systemProperty>
-                <systemProperty>
-                  <name>log.dir</name>
-                  <value>${basedir}</value>
-                </systemProperty>
               </systemProperties>
               <scanIntervalSeconds>0</scanIntervalSeconds>
               <daemon>true</daemon>
               <webAppSourceDirectory>${basedir}/src/test/webapp</webAppSourceDirectory>
-              <webXml>${basedir}/src/test/webapp/WEB-INF/web.xml</webXml>
+              <webXml>${basedir}/src/test/webapp/WEB-INF/web-${rest.webxml.loc}.xml</webXml>
               <workingDirectory>${basedir}</workingDirectory>
             </configuration>
           </execution>
@@ -238,7 +234,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <excludes>
-            <exclude>**/integration/*Test.java
+            <exclude>**/integration/**/*Test.java
             </exclude>
           </excludes>
         </configuration>
@@ -255,7 +251,7 @@
                 <exclude>none</exclude>
               </excludes>
               <includes>
-                <include>**/integration/*Test.java
+                <include>**/integration/**/*Test.java
                 </include>
               </includes>
             </configuration>
@@ -309,6 +305,7 @@
     </profile>
   </profiles>
   <properties>
+    <rest.webxml.loc>rest</rest.webxml.loc>
     <netbeans.hint.deploy.server>Tomcat60</netbeans.hint.deploy.server>
   </properties>
 </project>
