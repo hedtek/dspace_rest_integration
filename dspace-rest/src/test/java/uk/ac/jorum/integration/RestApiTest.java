@@ -20,4 +20,6 @@ public class RestApiTest extends RestApiBaseTest {
       String result = makeRequest("/communities");
       assertThat(result, containsString("\"communities_collection\": [\n\n]}"));
     }
+  
+ 
 }

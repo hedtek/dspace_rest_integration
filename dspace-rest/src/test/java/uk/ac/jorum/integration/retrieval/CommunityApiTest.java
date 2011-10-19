@@ -17,8 +17,54 @@ public class CommunityApiTest extends RestApiBaseTest {
 
   @Test
     public void emptyCommunitiesList() throws Exception {
-      loadFixture("truncate");
+      loadFixture("emptyDatabase");
       String result = makeRequest("/communities");
       assertThat(result, containsString("\"communities_collection\": [\n\n]}"));
     }
+  
+  @Test
+  	public void emptyCommunitiesListStatusCode() throws Exception{
+	  loadFixture("emptyDatabase");
+	  int result = getResponseCode("/communities", "");
+	  assertEquals(204, result);
+  	}
+
+  @Test
+	public void communityListWithOneTopLevelCommunityStatusCode() throws Exception{
+	  loadFixture("singleTopLevelCommunityDatabase");
+	  int result = getResponseCode("/communities", "");
+	  assertEquals(200, result);
+	}
+  
+  @Test
+  	public void communityListWithOneTopLevelCommunity() throws Exception {
+	  loadFixture("singleTopLevelCommunityDatabase");
+	  
+	  /*
+	   {"entityPrefix": "communities", "communities_collection": [
+			{
+			  "administrators": null,
+			  "canEdit": false,
+			  "collections": [],
+			  "copyrightText": "Copyright information",
+			  "countItems": 0,
+			  "handle": "123456789\/1",
+			  "id": 1,
+			  "introductoryText": "Introductory text for community no 1",
+			  "logo": null,
+			  "name": "Community no 1",
+			  "parentCommunity": null,
+			  "recentSubmissions": [],
+			  "shortDescription": "Short description of community no 1",
+			  "sidebarText": "Side bar text for community 1",
+			  "subCommunities": [],
+			  "type": 4,
+			  "entityReference": "\/communities\/1",
+			  "entityURL": "http:\/\/localhost:8080\/rest\/communities\/1",
+			  "entityId": "1",
+			  "entityTitle": "123456789\/1"
+			}
+		]}
+	   */
+  }
 }

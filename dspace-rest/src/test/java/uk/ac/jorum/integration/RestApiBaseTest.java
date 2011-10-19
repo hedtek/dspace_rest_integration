@@ -14,6 +14,7 @@ import org.junit.BeforeClass;
 import org.junit.AfterClass;
 import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.HttpClient;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -45,13 +46,26 @@ public abstract class RestApiBaseTest {
   protected String makeRequest(String endpoint) throws Exception {
     return makeRequest(endpoint, "");
   }
-
+  
   protected String makeRequest(String endpoint, String queryString) throws Exception {
-    URI uri = URIUtils.createURI(apiProtocol, apiHost, apiPort, apiMountPoint + endpoint, queryString, "");
+	URI uri = URIUtils.createURI(apiProtocol, apiHost, apiPort, apiMountPoint + endpoint, queryString, "");
+	HttpGet httpget = new HttpGet(uri);
+	httpget.addHeader("Accept", "application/json");
     ResponseHandler<String> responseHandler = new BasicResponseHandler();
-    HttpGet httpget = new HttpGet(uri);
-    httpget.addHeader("Accept", "application/json");
     return client.execute(httpget, responseHandler);
+    
+  }
+  
+  protected int getResponseCode(String endpoint, String queryString) throws Exception{
+	URI uri = URIUtils.createURI(apiProtocol, apiHost, apiPort, apiMountPoint + endpoint, queryString, "");
+	HttpGet httpget = new HttpGet(uri);
+	httpget.addHeader("Accept", "application/json");
+	HttpResponse response = client.execute(httpget);
+    return response.getStatusLine().getStatusCode();
+  }
+
+  protected int getResponseCode(String endpoint) throws Exception{
+	return getResponseCode(endpoint, "");
   }
 
   protected static void loadDatabase(String filename) throws Exception {
