@@ -212,6 +212,10 @@
                   <name>jetty.port</name>
                   <value>9090</value>
                 </systemProperty>
+                <systemProperty>
+                  <name>log.dir</name>
+                  <value>${basedir}</value>
+                </systemProperty>
               </systemProperties>
               <scanIntervalSeconds>0</scanIntervalSeconds>
               <daemon>true</daemon>
