@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+ The contents of this file are subject to the license and copyright
+ detailed in the LICENSE and NOTICE files at the root of the source
+ tree and available online at
+
+ http://www.dspace.org/license/
+ -->
 <xsl:stylesheet
         xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:dim="http://www.dspace.org/xmlns/dspace/dim"

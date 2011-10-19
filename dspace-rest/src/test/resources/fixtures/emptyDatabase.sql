@@ -1,3 +1,9 @@
+-- The contents of this file are subject to the license and copyright
+-- detailed in the LICENSE and NOTICE files at the root of the source
+-- tree and available online at
+--
+-- http://www.dspace.org/license/
+
 TRUNCATE collection_item_count, community_item_count, checksum_history, most_recent_checksum, checksum_results, 
          ItemsBySubject, ItemsByDateAccessioned, ItemsByDate, ItemsByTitle, ItemsByAuthor, Communities2Item,
          EPersonGroup2WorkspaceItem, HistoryState, History, Subscription, RegistrationData,
