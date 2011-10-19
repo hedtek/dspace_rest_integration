@@ -31,20 +31,9 @@ public abstract class RestApiBaseTest {
   private static int apiPort = 9090;
   private HttpClient client;
 
-  @BeforeClass
-    public static void SetupDatabase() throws Exception {
+  @Before
+    public void loadDspaceConfig() throws Exception {
       ConfigurationManager.loadConfig("src/test/resources/config/dspace-integ-testrun.cfg");
-      IndexBrowse browse = new IndexBrowse();
-      browse.setDelete(true);
-      browse.setExecute(true);
-      browse.clearDatabase();
-      DatabaseManager.loadSql(loadClearSqlFile());
-
-      DatabaseManager.loadSql(loadSqlFile());
-      browse = new IndexBrowse();
-      browse.setRebuild(true);
-      browse.setExecute(true);
-      browse.initBrowse();
     }
 
   @Before
@@ -60,6 +49,14 @@ public abstract class RestApiBaseTest {
   protected String makeRequest(String endpoint) throws Exception {
     return makeRequest(endpoint, "");
   }
+  
+  protected static void clearDatabase() throws Exception {
+	  IndexBrowse browse = new IndexBrowse();
+      browse.setDelete(true);
+      browse.setExecute(true);
+      browse.clearDatabase();
+      DatabaseManager.loadSql(loadClearSqlFile());
+  }
 
   protected String makeRequest(String endpoint, String queryString) throws Exception {
     URI uri = URIUtils.createURI(apiProtocol, apiHost, apiPort, apiMountPoint + endpoint, queryString, "");
@@ -68,9 +65,18 @@ public abstract class RestApiBaseTest {
     httpget.addHeader("Accept", "application/json");
     return client.execute(httpget, responseHandler);
   }
+  
+  protected static void loadDatabase(String filename) throws Exception {
+	DatabaseManager.loadSql(new FileReader(new File(filename).getCanonicalPath()));
+	IndexBrowse browse = new IndexBrowse();
+	browse.setRebuild(true);
+	browse.setExecute(true);
+	browse.initBrowse();
+  }
 
   protected void loadFixture(String fixtureName) throws Exception {
-    DatabaseManager.loadSql(new FileReader(new File("src/test/resources/fixtures/" + fixtureName + ".sql")));
+    clearDatabase();
+    loadDatabase("src/test/resources/fixtures/" + fixtureName + ".sql");
   }
 
   private static FileReader loadSqlFile() throws Exception {
