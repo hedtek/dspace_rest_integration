@@ -69,7 +69,8 @@ public abstract class RestApiBaseTest {
   }
 
   protected static void loadDatabase(String filename) throws Exception {
-    Runtime.getRuntime().exec("psql dspace-integ -U dspace-integ < " + filename); 
+    ConfigurationManager.loadConfig("src/test/resources/config/dspace-integ-testrun.cfg");
+    DatabaseManager.loadSql(new FileReader(new File(filename).getCanonicalPath()));
   }
 
   protected void loadFixture(String fixtureName) throws Exception {
