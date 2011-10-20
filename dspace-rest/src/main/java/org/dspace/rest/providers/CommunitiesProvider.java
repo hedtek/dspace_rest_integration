@@ -145,7 +145,7 @@ public class CommunitiesProvider extends AbstractBaseProvider implements CoreEnt
         log.info(userInfo() + "get_entity:" + reference.getId());
         String segments[] = {};
 
-        System.out.println("Community get entity");
+        log.info("Community get entity");
         if (reqStor.getStoredValue("pathInfo") != null) {
             segments = reqStor.getStoredValue("pathInfo").toString().split("/", 10);
         }
@@ -199,7 +199,7 @@ public class CommunitiesProvider extends AbstractBaseProvider implements CoreEnt
     public List<?> getEntities(EntityReference ref, Search search) {
         log.info(userInfo() + "list_entities");
 
-        System.out.println("stor2" + reqStor.getStoredValue("pathInfo").toString());
+        log.info("stor2" + reqStor.getStoredValue("pathInfo").toString());
 
         Context context;
 
@@ -262,12 +262,12 @@ public class CommunitiesProvider extends AbstractBaseProvider implements CoreEnt
     }
 
     public String[] importData(String reference, InputStream data, String encodingKey, Map<String, Object> params) {
-        System.out.println("===== importdata called");
+        log.info("===== importdata called");
         return new String[]{"123", "45678"};
     }
 
     public String exportData(String reference, Search search, OutputStream data, boolean destructive, Map<String, Object> params) {
-        System.out.println("---EXPORT");
+        log.info("---EXPORT");
         return "sadasdasq3123";
     }
 

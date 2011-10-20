@@ -20,7 +20,7 @@ CREATE FUNCTION getnextid(character varying) RETURNS integer
     AS $_$SELECT CAST (nextval($1 || '_seq') AS INTEGER) AS RESULT $_$;
 
 
-ALTER FUNCTION public.getnextid(character varying) OWNER TO dspace;
+ALTER FUNCTION public.getnextid(character varying) OWNER TO dspace-integ;
 
 SET default_tablespace = '';
 
@@ -37,7 +37,7 @@ CREATE TABLE bi_2_dis (
 );
 
 
-ALTER TABLE public.bi_2_dis OWNER TO dspace;
+ALTER TABLE public.bi_2_dis OWNER TO dspace-integ;
 
 --
 -- Name: bi_2_dis_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -51,7 +51,7 @@ CREATE SEQUENCE bi_2_dis_seq
     CACHE 1;
 
 
-ALTER TABLE public.bi_2_dis_seq OWNER TO dspace;
+ALTER TABLE public.bi_2_dis_seq OWNER TO dspace-integ;
 
 --
 -- Name: bi_2_dis_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -71,7 +71,7 @@ CREATE TABLE bi_2_dmap (
 );
 
 
-ALTER TABLE public.bi_2_dmap OWNER TO dspace;
+ALTER TABLE public.bi_2_dmap OWNER TO dspace-integ;
 
 --
 -- Name: bi_2_dmap_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -85,7 +85,7 @@ CREATE SEQUENCE bi_2_dmap_seq
     CACHE 1;
 
 
-ALTER TABLE public.bi_2_dmap_seq OWNER TO dspace;
+ALTER TABLE public.bi_2_dmap_seq OWNER TO dspace-integ;
 
 --
 -- Name: bi_2_dmap_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -105,7 +105,7 @@ CREATE TABLE bi_4_dis (
 );
 
 
-ALTER TABLE public.bi_4_dis OWNER TO dspace;
+ALTER TABLE public.bi_4_dis OWNER TO dspace-integ;
 
 --
 -- Name: bi_4_dis_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -119,7 +119,7 @@ CREATE SEQUENCE bi_4_dis_seq
     CACHE 1;
 
 
-ALTER TABLE public.bi_4_dis_seq OWNER TO dspace;
+ALTER TABLE public.bi_4_dis_seq OWNER TO dspace-integ;
 
 --
 -- Name: bi_4_dis_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -139,7 +139,7 @@ CREATE TABLE bi_4_dmap (
 );
 
 
-ALTER TABLE public.bi_4_dmap OWNER TO dspace;
+ALTER TABLE public.bi_4_dmap OWNER TO dspace-integ;
 
 --
 -- Name: bi_4_dmap_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -153,7 +153,7 @@ CREATE SEQUENCE bi_4_dmap_seq
     CACHE 1;
 
 
-ALTER TABLE public.bi_4_dmap_seq OWNER TO dspace;
+ALTER TABLE public.bi_4_dmap_seq OWNER TO dspace-integ;
 
 --
 -- Name: bi_4_dmap_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -175,7 +175,7 @@ CREATE TABLE bi_item (
 );
 
 
-ALTER TABLE public.bi_item OWNER TO dspace;
+ALTER TABLE public.bi_item OWNER TO dspace-integ;
 
 --
 -- Name: bi_item_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -189,7 +189,7 @@ CREATE SEQUENCE bi_item_seq
     CACHE 1;
 
 
-ALTER TABLE public.bi_item_seq OWNER TO dspace;
+ALTER TABLE public.bi_item_seq OWNER TO dspace-integ;
 
 --
 -- Name: bi_item_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -211,7 +211,7 @@ CREATE TABLE bi_withdrawn (
 );
 
 
-ALTER TABLE public.bi_withdrawn OWNER TO dspace;
+ALTER TABLE public.bi_withdrawn OWNER TO dspace-integ;
 
 --
 -- Name: bi_withdrawn_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -225,7 +225,7 @@ CREATE SEQUENCE bi_withdrawn_seq
     CACHE 1;
 
 
-ALTER TABLE public.bi_withdrawn_seq OWNER TO dspace;
+ALTER TABLE public.bi_withdrawn_seq OWNER TO dspace-integ;
 
 --
 -- Name: bi_withdrawn_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -255,7 +255,7 @@ CREATE TABLE bitstream (
 );
 
 
-ALTER TABLE public.bitstream OWNER TO dspace;
+ALTER TABLE public.bitstream OWNER TO dspace-integ;
 
 --
 -- Name: bitstream_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -269,7 +269,7 @@ CREATE SEQUENCE bitstream_seq
     CACHE 1;
 
 
-ALTER TABLE public.bitstream_seq OWNER TO dspace;
+ALTER TABLE public.bitstream_seq OWNER TO dspace-integ;
 
 --
 -- Name: bitstream_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -292,7 +292,7 @@ CREATE TABLE bitstreamformatregistry (
 );
 
 
-ALTER TABLE public.bitstreamformatregistry OWNER TO dspace;
+ALTER TABLE public.bitstreamformatregistry OWNER TO dspace-integ;
 
 --
 -- Name: bitstreamformatregistry_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -306,7 +306,7 @@ CREATE SEQUENCE bitstreamformatregistry_seq
     CACHE 1;
 
 
-ALTER TABLE public.bitstreamformatregistry_seq OWNER TO dspace;
+ALTER TABLE public.bitstreamformatregistry_seq OWNER TO dspace-integ;
 
 --
 -- Name: bitstreamformatregistry_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -326,7 +326,7 @@ CREATE TABLE bundle (
 );
 
 
-ALTER TABLE public.bundle OWNER TO dspace;
+ALTER TABLE public.bundle OWNER TO dspace-integ;
 
 --
 -- Name: bundle2bitstream; Type: TABLE; Schema: public; Owner: dspace; Tablespace: 
@@ -339,7 +339,7 @@ CREATE TABLE bundle2bitstream (
 );
 
 
-ALTER TABLE public.bundle2bitstream OWNER TO dspace;
+ALTER TABLE public.bundle2bitstream OWNER TO dspace-integ;
 
 --
 -- Name: bundle2bitstream_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -353,7 +353,7 @@ CREATE SEQUENCE bundle2bitstream_seq
     CACHE 1;
 
 
-ALTER TABLE public.bundle2bitstream_seq OWNER TO dspace;
+ALTER TABLE public.bundle2bitstream_seq OWNER TO dspace-integ;
 
 --
 -- Name: bundle2bitstream_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -374,7 +374,7 @@ CREATE SEQUENCE bundle_seq
     CACHE 1;
 
 
-ALTER TABLE public.bundle_seq OWNER TO dspace;
+ALTER TABLE public.bundle_seq OWNER TO dspace-integ;
 
 --
 -- Name: bundle_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -398,7 +398,7 @@ CREATE TABLE checksum_history (
 );
 
 
-ALTER TABLE public.checksum_history OWNER TO dspace;
+ALTER TABLE public.checksum_history OWNER TO dspace-integ;
 
 --
 -- Name: checksum_history_check_id_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -412,7 +412,7 @@ CREATE SEQUENCE checksum_history_check_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.checksum_history_check_id_seq OWNER TO dspace;
+ALTER TABLE public.checksum_history_check_id_seq OWNER TO dspace-integ;
 
 --
 -- Name: checksum_history_check_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: dspace
@@ -438,7 +438,7 @@ CREATE TABLE checksum_results (
 );
 
 
-ALTER TABLE public.checksum_results OWNER TO dspace;
+ALTER TABLE public.checksum_results OWNER TO dspace-integ;
 
 --
 -- Name: collection; Type: TABLE; Schema: public; Owner: dspace; Tablespace: 
@@ -463,7 +463,7 @@ CREATE TABLE collection (
 );
 
 
-ALTER TABLE public.collection OWNER TO dspace;
+ALTER TABLE public.collection OWNER TO dspace-integ;
 
 --
 -- Name: collection2item; Type: TABLE; Schema: public; Owner: dspace; Tablespace: 
@@ -476,7 +476,7 @@ CREATE TABLE collection2item (
 );
 
 
-ALTER TABLE public.collection2item OWNER TO dspace;
+ALTER TABLE public.collection2item OWNER TO dspace-integ;
 
 --
 -- Name: collection2item_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -490,7 +490,7 @@ CREATE SEQUENCE collection2item_seq
     CACHE 1;
 
 
-ALTER TABLE public.collection2item_seq OWNER TO dspace;
+ALTER TABLE public.collection2item_seq OWNER TO dspace-integ;
 
 --
 -- Name: collection2item_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -509,7 +509,7 @@ CREATE TABLE collection_item_count (
 );
 
 
-ALTER TABLE public.collection_item_count OWNER TO dspace;
+ALTER TABLE public.collection_item_count OWNER TO dspace-integ;
 
 --
 -- Name: collection_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -523,7 +523,7 @@ CREATE SEQUENCE collection_seq
     CACHE 1;
 
 
-ALTER TABLE public.collection_seq OWNER TO dspace;
+ALTER TABLE public.collection_seq OWNER TO dspace-integ;
 
 --
 -- Name: collection_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -543,7 +543,7 @@ CREATE TABLE communities2item (
 );
 
 
-ALTER TABLE public.communities2item OWNER TO dspace;
+ALTER TABLE public.communities2item OWNER TO dspace-integ;
 
 --
 -- Name: communities2item_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -557,7 +557,7 @@ CREATE SEQUENCE communities2item_seq
     CACHE 1;
 
 
-ALTER TABLE public.communities2item_seq OWNER TO dspace;
+ALTER TABLE public.communities2item_seq OWNER TO dspace-integ;
 
 --
 -- Name: communities2item_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -581,7 +581,7 @@ CREATE TABLE community (
 );
 
 
-ALTER TABLE public.community OWNER TO dspace;
+ALTER TABLE public.community OWNER TO dspace-integ;
 
 --
 -- Name: community2collection; Type: TABLE; Schema: public; Owner: dspace; Tablespace: 
@@ -594,7 +594,7 @@ CREATE TABLE community2collection (
 );
 
 
-ALTER TABLE public.community2collection OWNER TO dspace;
+ALTER TABLE public.community2collection OWNER TO dspace-integ;
 
 --
 -- Name: community2collection_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -608,7 +608,7 @@ CREATE SEQUENCE community2collection_seq
     CACHE 1;
 
 
-ALTER TABLE public.community2collection_seq OWNER TO dspace;
+ALTER TABLE public.community2collection_seq OWNER TO dspace-integ;
 
 --
 -- Name: community2collection_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -628,7 +628,7 @@ CREATE TABLE community2community (
 );
 
 
-ALTER TABLE public.community2community OWNER TO dspace;
+ALTER TABLE public.community2community OWNER TO dspace-integ;
 
 --
 -- Name: community2community_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -642,7 +642,7 @@ CREATE SEQUENCE community2community_seq
     CACHE 1;
 
 
-ALTER TABLE public.community2community_seq OWNER TO dspace;
+ALTER TABLE public.community2community_seq OWNER TO dspace-integ;
 
 --
 -- Name: community2community_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -659,7 +659,7 @@ CREATE VIEW community2item AS
     SELECT community2collection.community_id, collection2item.item_id FROM community2collection, collection2item WHERE (collection2item.collection_id = community2collection.collection_id);
 
 
-ALTER TABLE public.community2item OWNER TO dspace;
+ALTER TABLE public.community2item OWNER TO dspace-integ;
 
 --
 -- Name: community_item_count; Type: TABLE; Schema: public; Owner: dspace; Tablespace: 
@@ -671,7 +671,7 @@ CREATE TABLE community_item_count (
 );
 
 
-ALTER TABLE public.community_item_count OWNER TO dspace;
+ALTER TABLE public.community_item_count OWNER TO dspace-integ;
 
 --
 -- Name: community_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -685,7 +685,7 @@ CREATE SEQUENCE community_seq
     CACHE 1;
 
 
-ALTER TABLE public.community_seq OWNER TO dspace;
+ALTER TABLE public.community_seq OWNER TO dspace-integ;
 
 --
 -- Name: community_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -706,7 +706,7 @@ CREATE SEQUENCE dctyperegistry_seq
     CACHE 1;
 
 
-ALTER TABLE public.dctyperegistry_seq OWNER TO dspace;
+ALTER TABLE public.dctyperegistry_seq OWNER TO dspace-integ;
 
 --
 -- Name: dctyperegistry_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -727,7 +727,7 @@ CREATE SEQUENCE metadatafieldregistry_seq
     CACHE 1;
 
 
-ALTER TABLE public.metadatafieldregistry_seq OWNER TO dspace;
+ALTER TABLE public.metadatafieldregistry_seq OWNER TO dspace-integ;
 
 --
 -- Name: metadatafieldregistry_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -749,7 +749,7 @@ CREATE TABLE metadatafieldregistry (
 );
 
 
-ALTER TABLE public.metadatafieldregistry OWNER TO dspace;
+ALTER TABLE public.metadatafieldregistry OWNER TO dspace-integ;
 
 --
 -- Name: metadatavalue_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -763,7 +763,7 @@ CREATE SEQUENCE metadatavalue_seq
     CACHE 1;
 
 
-ALTER TABLE public.metadatavalue_seq OWNER TO dspace;
+ALTER TABLE public.metadatavalue_seq OWNER TO dspace-integ;
 
 --
 -- Name: metadatavalue_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -786,7 +786,7 @@ CREATE TABLE metadatavalue (
 );
 
 
-ALTER TABLE public.metadatavalue OWNER TO dspace;
+ALTER TABLE public.metadatavalue OWNER TO dspace-integ;
 
 --
 -- Name: dcvalue; Type: VIEW; Schema: public; Owner: dspace
@@ -796,7 +796,7 @@ CREATE VIEW dcvalue AS
     SELECT metadatavalue.metadata_value_id AS dc_value_id, metadatavalue.item_id, metadatavalue.metadata_field_id AS dc_type_id, metadatavalue.text_value, metadatavalue.text_lang, metadatavalue.place FROM metadatavalue, metadatafieldregistry WHERE ((metadatavalue.metadata_field_id = metadatafieldregistry.metadata_field_id) AND (metadatafieldregistry.metadata_schema_id = 1));
 
 
-ALTER TABLE public.dcvalue OWNER TO dspace;
+ALTER TABLE public.dcvalue OWNER TO dspace-integ;
 
 --
 -- Name: dcvalue_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -810,7 +810,7 @@ CREATE SEQUENCE dcvalue_seq
     CACHE 1;
 
 
-ALTER TABLE public.dcvalue_seq OWNER TO dspace;
+ALTER TABLE public.dcvalue_seq OWNER TO dspace-integ;
 
 --
 -- Name: dcvalue_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -840,7 +840,7 @@ CREATE TABLE eperson (
 );
 
 
-ALTER TABLE public.eperson OWNER TO dspace;
+ALTER TABLE public.eperson OWNER TO dspace-integ;
 
 --
 -- Name: eperson_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -854,7 +854,7 @@ CREATE SEQUENCE eperson_seq
     CACHE 1;
 
 
-ALTER TABLE public.eperson_seq OWNER TO dspace;
+ALTER TABLE public.eperson_seq OWNER TO dspace-integ;
 
 --
 -- Name: eperson_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -873,7 +873,7 @@ CREATE TABLE epersongroup (
 );
 
 
-ALTER TABLE public.epersongroup OWNER TO dspace;
+ALTER TABLE public.epersongroup OWNER TO dspace-integ;
 
 --
 -- Name: epersongroup2eperson; Type: TABLE; Schema: public; Owner: dspace; Tablespace: 
@@ -886,7 +886,7 @@ CREATE TABLE epersongroup2eperson (
 );
 
 
-ALTER TABLE public.epersongroup2eperson OWNER TO dspace;
+ALTER TABLE public.epersongroup2eperson OWNER TO dspace-integ;
 
 --
 -- Name: epersongroup2eperson_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -900,7 +900,7 @@ CREATE SEQUENCE epersongroup2eperson_seq
     CACHE 1;
 
 
-ALTER TABLE public.epersongroup2eperson_seq OWNER TO dspace;
+ALTER TABLE public.epersongroup2eperson_seq OWNER TO dspace-integ;
 
 --
 -- Name: epersongroup2eperson_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -921,7 +921,7 @@ CREATE SEQUENCE epersongroup2workspaceitem_seq
     CACHE 1;
 
 
-ALTER TABLE public.epersongroup2workspaceitem_seq OWNER TO dspace;
+ALTER TABLE public.epersongroup2workspaceitem_seq OWNER TO dspace-integ;
 
 --
 -- Name: epersongroup2workspaceitem_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -941,7 +941,7 @@ CREATE TABLE epersongroup2workspaceitem (
 );
 
 
-ALTER TABLE public.epersongroup2workspaceitem OWNER TO dspace;
+ALTER TABLE public.epersongroup2workspaceitem OWNER TO dspace-integ;
 
 --
 -- Name: epersongroup_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -955,7 +955,7 @@ CREATE SEQUENCE epersongroup_seq
     CACHE 1;
 
 
-ALTER TABLE public.epersongroup_seq OWNER TO dspace;
+ALTER TABLE public.epersongroup_seq OWNER TO dspace-integ;
 
 --
 -- Name: epersongroup_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -975,7 +975,7 @@ CREATE TABLE fileextension (
 );
 
 
-ALTER TABLE public.fileextension OWNER TO dspace;
+ALTER TABLE public.fileextension OWNER TO dspace-integ;
 
 --
 -- Name: fileextension_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -989,7 +989,7 @@ CREATE SEQUENCE fileextension_seq
     CACHE 1;
 
 
-ALTER TABLE public.fileextension_seq OWNER TO dspace;
+ALTER TABLE public.fileextension_seq OWNER TO dspace-integ;
 
 --
 -- Name: fileextension_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -1009,7 +1009,7 @@ CREATE TABLE group2group (
 );
 
 
-ALTER TABLE public.group2group OWNER TO dspace;
+ALTER TABLE public.group2group OWNER TO dspace-integ;
 
 --
 -- Name: group2group_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -1023,7 +1023,7 @@ CREATE SEQUENCE group2group_seq
     CACHE 1;
 
 
-ALTER TABLE public.group2group_seq OWNER TO dspace;
+ALTER TABLE public.group2group_seq OWNER TO dspace-integ;
 
 --
 -- Name: group2group_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -1043,7 +1043,7 @@ CREATE TABLE group2groupcache (
 );
 
 
-ALTER TABLE public.group2groupcache OWNER TO dspace;
+ALTER TABLE public.group2groupcache OWNER TO dspace-integ;
 
 --
 -- Name: group2groupcache_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -1057,7 +1057,7 @@ CREATE SEQUENCE group2groupcache_seq
     CACHE 1;
 
 
-ALTER TABLE public.group2groupcache_seq OWNER TO dspace;
+ALTER TABLE public.group2groupcache_seq OWNER TO dspace-integ;
 
 --
 -- Name: group2groupcache_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -1078,7 +1078,7 @@ CREATE TABLE handle (
 );
 
 
-ALTER TABLE public.handle OWNER TO dspace;
+ALTER TABLE public.handle OWNER TO dspace-integ;
 
 --
 -- Name: handle_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -1092,7 +1092,7 @@ CREATE SEQUENCE handle_seq
     CACHE 1;
 
 
-ALTER TABLE public.handle_seq OWNER TO dspace;
+ALTER TABLE public.handle_seq OWNER TO dspace-integ;
 
 --
 -- Name: handle_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -1113,7 +1113,7 @@ CREATE SEQUENCE history_seq
     CACHE 1;
 
 
-ALTER TABLE public.history_seq OWNER TO dspace;
+ALTER TABLE public.history_seq OWNER TO dspace-integ;
 
 --
 -- Name: history_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -1134,7 +1134,7 @@ CREATE SEQUENCE historystate_seq
     CACHE 1;
 
 
-ALTER TABLE public.historystate_seq OWNER TO dspace;
+ALTER TABLE public.historystate_seq OWNER TO dspace-integ;
 
 --
 -- Name: historystate_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -1157,7 +1157,7 @@ CREATE TABLE item (
 );
 
 
-ALTER TABLE public.item OWNER TO dspace;
+ALTER TABLE public.item OWNER TO dspace-integ;
 
 --
 -- Name: item2bundle; Type: TABLE; Schema: public; Owner: dspace; Tablespace: 
@@ -1170,7 +1170,7 @@ CREATE TABLE item2bundle (
 );
 
 
-ALTER TABLE public.item2bundle OWNER TO dspace;
+ALTER TABLE public.item2bundle OWNER TO dspace-integ;
 
 --
 -- Name: item2bundle_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -1184,7 +1184,7 @@ CREATE SEQUENCE item2bundle_seq
     CACHE 1;
 
 
-ALTER TABLE public.item2bundle_seq OWNER TO dspace;
+ALTER TABLE public.item2bundle_seq OWNER TO dspace-integ;
 
 --
 -- Name: item2bundle_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -1205,7 +1205,7 @@ CREATE SEQUENCE item_seq
     CACHE 1;
 
 
-ALTER TABLE public.item_seq OWNER TO dspace;
+ALTER TABLE public.item_seq OWNER TO dspace-integ;
 
 --
 -- Name: item_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -1226,7 +1226,7 @@ CREATE SEQUENCE metadataschemaregistry_seq
     CACHE 1;
 
 
-ALTER TABLE public.metadataschemaregistry_seq OWNER TO dspace;
+ALTER TABLE public.metadataschemaregistry_seq OWNER TO dspace-integ;
 
 --
 -- Name: metadataschemaregistry_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -1246,7 +1246,7 @@ CREATE TABLE metadataschemaregistry (
 );
 
 
-ALTER TABLE public.metadataschemaregistry OWNER TO dspace;
+ALTER TABLE public.metadataschemaregistry OWNER TO dspace-integ;
 
 --
 -- Name: most_recent_checksum; Type: TABLE; Schema: public; Owner: dspace; Tablespace: 
@@ -1265,7 +1265,7 @@ CREATE TABLE most_recent_checksum (
 );
 
 
-ALTER TABLE public.most_recent_checksum OWNER TO dspace;
+ALTER TABLE public.most_recent_checksum OWNER TO dspace-integ;
 
 --
 -- Name: registrationdata; Type: TABLE; Schema: public; Owner: dspace; Tablespace: 
@@ -1279,7 +1279,7 @@ CREATE TABLE registrationdata (
 );
 
 
-ALTER TABLE public.registrationdata OWNER TO dspace;
+ALTER TABLE public.registrationdata OWNER TO dspace-integ;
 
 --
 -- Name: registrationdata_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -1293,7 +1293,7 @@ CREATE SEQUENCE registrationdata_seq
     CACHE 1;
 
 
-ALTER TABLE public.registrationdata_seq OWNER TO dspace;
+ALTER TABLE public.registrationdata_seq OWNER TO dspace-integ;
 
 --
 -- Name: registrationdata_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -1318,7 +1318,7 @@ CREATE TABLE resourcepolicy (
 );
 
 
-ALTER TABLE public.resourcepolicy OWNER TO dspace;
+ALTER TABLE public.resourcepolicy OWNER TO dspace-integ;
 
 --
 -- Name: resourcepolicy_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -1332,7 +1332,7 @@ CREATE SEQUENCE resourcepolicy_seq
     CACHE 1;
 
 
-ALTER TABLE public.resourcepolicy_seq OWNER TO dspace;
+ALTER TABLE public.resourcepolicy_seq OWNER TO dspace-integ;
 
 --
 -- Name: resourcepolicy_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -1352,7 +1352,7 @@ CREATE TABLE subscription (
 );
 
 
-ALTER TABLE public.subscription OWNER TO dspace;
+ALTER TABLE public.subscription OWNER TO dspace-integ;
 
 --
 -- Name: subscription_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -1366,7 +1366,7 @@ CREATE SEQUENCE subscription_seq
     CACHE 1;
 
 
-ALTER TABLE public.subscription_seq OWNER TO dspace;
+ALTER TABLE public.subscription_seq OWNER TO dspace-integ;
 
 --
 -- Name: subscription_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -1386,7 +1386,7 @@ CREATE TABLE tasklistitem (
 );
 
 
-ALTER TABLE public.tasklistitem OWNER TO dspace;
+ALTER TABLE public.tasklistitem OWNER TO dspace-integ;
 
 --
 -- Name: tasklistitem_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -1400,7 +1400,7 @@ CREATE SEQUENCE tasklistitem_seq
     CACHE 1;
 
 
-ALTER TABLE public.tasklistitem_seq OWNER TO dspace;
+ALTER TABLE public.tasklistitem_seq OWNER TO dspace-integ;
 
 --
 -- Name: tasklistitem_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -1425,7 +1425,7 @@ CREATE TABLE workflowitem (
 );
 
 
-ALTER TABLE public.workflowitem OWNER TO dspace;
+ALTER TABLE public.workflowitem OWNER TO dspace-integ;
 
 --
 -- Name: workflowitem_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -1439,7 +1439,7 @@ CREATE SEQUENCE workflowitem_seq
     CACHE 1;
 
 
-ALTER TABLE public.workflowitem_seq OWNER TO dspace;
+ALTER TABLE public.workflowitem_seq OWNER TO dspace-integ;
 
 --
 -- Name: workflowitem_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace
@@ -1464,7 +1464,7 @@ CREATE TABLE workspaceitem (
 );
 
 
-ALTER TABLE public.workspaceitem OWNER TO dspace;
+ALTER TABLE public.workspaceitem OWNER TO dspace-integ;
 
 --
 -- Name: workspaceitem_seq; Type: SEQUENCE; Schema: public; Owner: dspace
@@ -1478,7 +1478,7 @@ CREATE SEQUENCE workspaceitem_seq
     CACHE 1;
 
 
-ALTER TABLE public.workspaceitem_seq OWNER TO dspace;
+ALTER TABLE public.workspaceitem_seq OWNER TO dspace-integ;
 
 --
 -- Name: workspaceitem_seq; Type: SEQUENCE SET; Schema: public; Owner: dspace

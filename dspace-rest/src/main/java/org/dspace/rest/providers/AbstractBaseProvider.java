@@ -115,10 +115,10 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
         // scan for methods;
         Method[] entityMethods = processedEntity.getMethods();
         for (Method m : entityMethods) {
-            //System.out.println("checked method " + m.getName());
+            //log.info("checked method " + m.getName());
             String fieldPUT = func2actionMapPUT.get(m.getName());
             if (fieldPUT != null) {
-//                System.out.println("added " + fieldPUT + ":" + m.getName());
+//                log.info("added " + fieldPUT + ":" + m.getName());
                 addParameters(fieldPUT, m.getParameterTypes(), funcParamsPUT);
                 addMethod(fieldPUT, m.getName(), func2actionMapPUT_rev);
             }
@@ -148,12 +148,12 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
         Method[] CommunityMethods = processedEntity.getMethods();
 
         for (Method m : CommunityMethods) {
-            System.out.println("====PUT Analyzed method " + m.getName());
+            log.info("====PUT Analyzed method " + m.getName());
         }
         for (Method m : CommunityMethods) {
             String field = func2actionMapPUT.get(m.getName());
             if (field != null) {
-                System.out.println("===PUT Field found " + field);
+                log.info("===PUT Field found " + field);
                 //CustomAction locCA = new CustomAction(field, EntityView.VIEW_EDIT, "putAction");
 
                 // try {
@@ -167,12 +167,12 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
             }
         }
 
-        System.out.println("::::::::::");
+        log.info("::::::::::");
         for (String key : funcParamsPUT.keySet()) {
-            System.out.println("key " + key);
+            log.info("key " + key);
             Class<?>[] kl = funcParamsPUT.get(key);
             for (Class<?> k : kl) {
-                System.out.println(k.getName());
+                log.info(k.getName());
             }
         }
 
@@ -186,12 +186,12 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
         Method[] CommunityMethods = processedEntity.getMethods();
 
         for (Method m : CommunityMethods) {
-            System.out.println("====Analyzed method " + m.getName());
+            log.info("====Analyzed method " + m.getName());
         }
         for (Method m : CommunityMethods) {
             String field = func2actionMapGET.get(m.getName());
             if (field != null) {
-                System.out.println("===Field found " + field);
+                log.info("===Field found " + field);
                 //  CustomAction locCA = new CustomAction(field, EntityView.VIEW_SHOW, "testAction");
 
                 //try {
@@ -224,10 +224,10 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
         decodedInput = em.decodeData(input, Formats.JSON); //TODO other formats
 
         for (String key : decodedInput.keySet()) {
-            System.out.println("key - " + decodedInput.get(key));
+            log.info("key - " + decodedInput.get(key));
         }
 
-        System.out.println("PUT INPUT " + input);
+        log.info("PUT INPUT " + input);
         //String result = "none";
         Object result = new String("");
         String resField = "nofield";
@@ -235,10 +235,10 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
 
         if (view.getPathSegments().length > 1) {
             String function = getMethod(view.getPathSegment(2), func2actionMapPUT_rev);
-            System.out.println("working on function " + function);
+            log.info("working on function " + function);
             if (function != null) {
                 resField = func2actionMapPUT.get(view.getPathSegment(2));
-                System.out.println("resfield " + resField);
+                log.info("resfield " + resField);
                 Context context;
                 try {
                     context = new Context();
@@ -246,20 +246,20 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
                     throw new EntityException("Internal server error", "SQL error", 500);
                 }
                 refreshParams(context);
-                System.out.println("refreshing done,reference " + reference.getId());
+                log.info("refreshing done,reference " + reference.getId());
                 //if (entityExists(reference.getId())) {
                 //  CommunityEntity CE = new CommunityEntity(reference.getId(), context);
                 Object CE = new Object();
                 try {
                     CE = ctr.newInstance(reference.getId(), context);
                 } catch (Exception ex) {
-                    System.out.println("ne valja");
+                    log.info("ne valja");
                 }
 //
-//                try{ System.out.println("parameters found");
+//                try{ log.info("parameters found");
 //                Class<?>[] kl = funcParamsPUT.get(view.getPathSegment(2));
 //                for (Class<?> k : kl) {
-//                    System.out.println(k.getName());
+//                    log.info(k.getName());
 //                }} catch (Exception ex) {ex.printStackTrace(); }
 
 
@@ -296,16 +296,16 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
         Object result = new String("");
         String resField = "nofield";
         for (String segment : view.getPathSegments()) {
-            System.out.println(segment);
+            log.info(segment);
         }
-        System.out.println("areferenceee " + reference.getId());
+        log.info("areferenceee " + reference.getId());
 
         if (view.getPathSegments().length > 1) {
             String function = getMethod(view.getPathSegment(2), func2actionMapGET_rev);
-            System.out.println("working on function " + function);
+            log.info("working on function " + function);
             if (function != null) {
                 resField = func2actionMapGET.get(view.getPathSegment(2));
-                System.out.println("resfield " + resField);
+                log.info("resfield " + resField);
                 Context context;
                 try {
                     context = new Context();
@@ -313,21 +313,21 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
                     throw new EntityException("Internal server error", "SQL error", 500);
                 }
                 refreshParams(context);
-                System.out.println("refreshing done,reference " + reference.getId());
+                log.info("refreshing done,reference " + reference.getId());
                 //if (entityExists(reference.getId())) {
                 //  CommunityEntity CE = new CommunityEntity(reference.getId(), context);
                 Object CE = new Object();
                 try {
                     CE = ctr.newInstance(reference.getId(), context);
                 } catch (Exception ex) {
-                    System.out.println("nevalja");
+                    log.info("nevalja");
                 }
                 try {
                     Method method = CE.getClass().getMethod(function);
                     result = method.invoke(CE);
-                    System.out.println("result " + result);
+                    log.info("result " + result);
                 } catch (Exception ex) {
-                    System.out.println("line177");
+                    log.info("line177");
                     ex.printStackTrace();
                 }
 
@@ -441,7 +441,7 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
      */
     public void before(EntityView view, HttpServletRequest req, HttpServletResponse res) {
 
-        //    System.out.println("aaaaContent length = " + req.getContentLength());
+        //    log.info("aaaaContent length = " + req.getContentLength());
         String input = "";
 //        try {
 //            ServletInputStream SI = req.getInputStream();
@@ -461,36 +461,36 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
 //        }
 
 
-//        System.out.println("THIS IS INPUT " + input);
+//        log.info("THIS IS INPUT " + input);
 
 //        while (req.getAttributeNames().hasMoreElements()) {
-//            System.out.println("attr: " + req.getAttributeNames().nextElement());
+//            log.info("attr: " + req.getAttributeNames().nextElement());
 //        }
 
 
-        //      System.out.println("reference " + view.getEntityReference().getId());
+        //      log.info("reference " + view.getEntityReference().getId());
 
 //        while (req.getHeaderNames().hasMoreElements()) {
-//            System.out.println("head: " + req.getHeaderNames().nextElement());
+//            log.info("head: " + req.getHeaderNames().nextElement());
 //        }
 //
 //        while (req.getParameterNames().hasMoreElements()) {
-//            System.out.println("para: " + req.getParameterNames().nextElement());
+//            log.info("para: " + req.getParameterNames().nextElement());
 //        }
         log.info(userInfo() + "starting to write for collection adding");
         Map<String, Object> daa = new HashMap<String, Object>();
 //        EntityEncodingManager em = new EntityEncodingManager(null, null);
 //        daa = em.decodeData(input, Formats.JSON);
-//        System.out.println("OLD REQINPUT ");
+//        log.info("OLD REQINPUT ");
 //        for (String key : reqInput.keySet()) {
-//            System.out.println(reqInput.get(key));
+//            log.info(reqInput.get(key));
 //        }
 //        reqInput = em.decodeData(input, Formats.JSON);
-//        System.out.println("NEW REQINPUT ");
+//        log.info("NEW REQINPUT ");
 //        for (String key : reqInput.keySet()) {
-//            System.out.println(reqInput.get(key));
+//            log.info(reqInput.get(key));
 //        }
-//        System.out.println("(_)_) daa" + daa.get("cid"));
+//        log.info("(_)_) daa" + daa.get("cid"));
 //        String colid = "";
 //        if (daa.get("cid") != null) {
 //            colid = daa.get("cid").toString();
@@ -504,7 +504,7 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
 //            }
 //            refreshParams(context);
 //
-//            System.out.println(".adding collection to community." + colid + "int" + Integer.parseInt(colid));
+//            log.info(".adding collection to community." + colid + "int" + Integer.parseInt(colid));
 //            try {
 //                Collection col = Collection.find(context, Integer.parseInt(colid));
 //                Community com = Community.find(context, Integer.parseInt(view.getEntityReference().getId()));
@@ -532,7 +532,7 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
 
         //       Map<Object, Object> para = req.getParameterMap();
         //       for (Object key : para.keySet()) {
-        //           System.out.println("~~~~~ key " + key + " val " + para.get(key));
+        //           log.info("~~~~~ key " + key + " val " + para.get(key));
         //       }
 
         // json by default if nothing is requested
@@ -636,7 +636,7 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
                 throw new EntityException("Bad username or password", user, 403);
             }
         } catch (SQLException sql) {
-            System.out.println(sql.toString());
+            log.info(sql.toString());
             sql.printStackTrace();
         } catch (AuthorizeException auth) {
             throw new EntityException("Unauthorised", user, 401);
@@ -875,7 +875,7 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
         String IS = "";
         try {
             IS = readIStoString(input);
-            System.out.println("is+= " + IS);
+            log.info("is+= " + IS);
         } catch (IOException ex) {
             ex.printStackTrace();
         }
@@ -888,8 +888,8 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
         }
 
 
-        System.out.println("== translate formated data called");
-        System.out.println("got: \n" + IS + "\ndecoded " + decodedInput);
+        log.info("== translate formated data called");
+        log.info("got: \n" + IS + "\ndecoded " + decodedInput);
         return decodedInput;
     }
 
@@ -960,7 +960,7 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
     public Object getEntity(EntityReference reference) {
         String segments[] = {};
 
-        System.out.println("Abstract get entity");
+        log.info("Abstract get entity");
         if (reqStor.getStoredValue("pathInfo") != null) {
             segments = reqStor.getStoredValue("pathInfo").toString().split("/", 10);
         }
@@ -1013,7 +1013,7 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
         String segments[] = {};
         String action = "";
         Map<String, Object> inputVar = new HashMap<String, Object>();
-        System.out.println("Delete called");
+        log.info("Delete called");
 
         if (reqStor.getStoredValue("pathInfo") != null) {
             segments = reqStor.getStoredValue("pathInfo").toString().split("/", 32);
@@ -1047,7 +1047,7 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
         }
 
         if (func2actionMapDELETE_rev.containsKey(action)) {
-            System.out.println("contains key called");
+            log.info("contains key called");
             String function = getMethod(action, func2actionMapDELETE_rev);
             if (function == null) {
                 throw new EntityException("Bad request", "Method not supported - not defined", 400);
@@ -1074,9 +1074,9 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
                 Method method = CE.getClass().getMethod(function, funcParamsDELETE.get(action));
                 method.invoke(CE, ref, inputVar, context); // TODO more flexible for other param types
             } catch (NoSuchMethodException nex) {
-                System.out.println("nex");
+                log.info("nex");
             } catch (IllegalAccessException iex) {
-                System.out.println("iex");
+                log.info("iex");
             } catch (InvocationTargetException itex) {
                 EntityException eex = (EntityException) itex.getTargetException();
                 if (itex.getTargetException().getClass().equals(EntityException.class)) {
@@ -1092,7 +1092,7 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
                 // context already closed, ok
             }
         } else if (action.equals("")) {
-            System.out.println("action equal");
+            log.info("action equal");
             String function = getMethod(action, func2actionMapDELETE_rev);
             if (function == null) {
                 throw new EntityException("Bad request", "Method not supported - not defined", 400);
@@ -1132,13 +1132,13 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
     }
 
     public void updateEntity(EntityReference ref, Object entity, Map<String, Object> params) {
-        System.out.println("update called");
+        log.info("update called");
         Map<String, Object> inputVar = (HashMap) entity;
         String segments[] = {};
         if (params.containsKey("pathInfo")) {
             segments = params.get("pathInfo").toString().split("/", 10);
         }
-        //System.out.println("calling update");
+        //log.info("calling update");
 
         if (segments.length > 3) {
 
@@ -1147,10 +1147,10 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
                 segments[3] = segments[3].substring(0, segments[3].lastIndexOf("."));
             }
 
-            System.out.println("length > 3" + segments[2] + ".." + segments[3]);
+            log.info("length > 3" + segments[2] + ".." + segments[3]);
 
             if (func2actionMapPUT_rev.containsKey(segments[3])) {
-                //System.out.println("got in");
+                //log.info("got in");
 
                 String function = getMethod(segments[3], func2actionMapPUT_rev);
                 Context context;
@@ -1173,7 +1173,7 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
                 try {
                     Method method = CE.getClass().getMethod(function, funcParamsPUT.get(segments[3]));
                     method.invoke(CE, ref, inputVar, context); // TODO more flexible for other param types
-                    // System.out.println("invoked");
+                    // log.info("invoked");
                 } catch (InvocationTargetException ex) {
                     if (ex.getCause() != null) {
                         throw (RuntimeException) ex.getCause();
@@ -1192,13 +1192,13 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
                     // context already closed, ok
                 }
             } else {
-                //  System.out.println(segments[0] + ":" + segments[1] + ":" + segments[2] + ":" + segments[3]);
+                //  log.info(segments[0] + ":" + segments[1] + ":" + segments[2] + ":" + segments[3]);
                 for (String key : func2actionMapPUT_rev.keySet()) {
-                    System.out.println(key + " " + func2actionMapPUT_rev.get(key));
+                    log.info(key + " " + func2actionMapPUT_rev.get(key));
                 }
 //
                 for (String key : func2actionMapPUT.keySet()) {
-                    System.out.println(key + " " + func2actionMapPUT.get(key));
+                    log.info(key + " " + func2actionMapPUT.get(key));
                 }
                 throw new EntityException("Bad request", "Maethod not supported " + segments[3], 400);
             }
@@ -1206,7 +1206,7 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
     }
 
     public String createEntity(EntityReference ref, Object entity, Map<String, Object> params) {
-        System.out.println("creating");
+        log.info("creating");
         String result = "x";
         Map<String, Object> inputVar = (HashMap) entity;
         String action = "";
@@ -1225,7 +1225,7 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
 
 
         if (func2actionMapPOST_rev.get(action) != null) {
-            System.out.println("found " + func2actionMapPOST_rev.get("create"));
+            log.info("found " + func2actionMapPOST_rev.get("create"));
             function = func2actionMapPOST_rev.get(action);
             mandatory_params = inputParamsPOST.get(function);
         }
@@ -1246,7 +1246,7 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
         UserRequestParams uparams;
         uparams = refreshParams(context);
         Object CE = new Object();
-        System.out.println("id izabran " + ref.getId());
+        log.info("id izabran " + ref.getId());
         try {
             CE = entityConstructor.newInstance(ref.getId(), context, 1, uparams);
         } catch (Exception ex) {
@@ -1257,7 +1257,7 @@ public abstract class AbstractBaseProvider implements EntityProvider, Resolvable
         try {
             Method method = CE.getClass().getMethod(function, funcParamsPOST.get(action));
             result = (String) method.invoke(CE, ref, inputVar, context); // TODO more flexible for other param types
-            // System.out.println("invoked");
+            // log.info("invoked");
         } catch (InvocationTargetException ex) {
             if (ex.getCause() != null) {
                 throw (RuntimeException) ex.getCause();

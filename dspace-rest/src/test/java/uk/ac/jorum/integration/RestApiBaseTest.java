@@ -69,11 +69,11 @@ public abstract class RestApiBaseTest {
   }
 
   protected static void loadDatabase(String filename) throws Exception {
-    Runtime.getRuntime().exec("psql dspace-integ -U dspace-integ -w < " + filename); 
+    Runtime.getRuntime().exec("psql dspace-integ -U dspace-integ < " + filename); 
   }
 
   protected void loadFixture(String fixtureName) throws Exception {
-    loadDatabase("src/test/resources/setup/cleardb.sql");
+    loadDatabase("src/test/resources/fixtures/truncate.sql");
     loadDatabase("src/test/resources/fixtures/" + fixtureName + ".sql");
   }
 }
