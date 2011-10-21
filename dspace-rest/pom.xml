@@ -133,6 +133,13 @@
       <version>1.5.2.1</version>
     </dependency>
 
+	<dependency>
+      <groupId>com.googlecode.json-simple</groupId>
+      <artifactId>json-simple</artifactId>
+      <scope>test</scope>
+      <version>1.1</version>
+    </dependency>
+    
     <!-- standard webapp stuff -->
     <dependency>
       <groupId>javax.servlet</groupId>

@@ -13,6 +13,10 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import static org.junit.matchers.JUnitMatchers.*;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+
 public class CommunityApiTest extends RestApiBaseTest {
 
   @Test
@@ -39,7 +43,12 @@ public class CommunityApiTest extends RestApiBaseTest {
   @Test
   	public void communityListWithOneTopLevelCommunity() throws Exception {
 	  loadFixture("singleTopLevelCommunityDatabase");
-	  
+	  String result = makeRequest("/communities");
+	  JSONObject resultJSON = (JSONObject) JSONValue.parse(result);
+	  System.out.println("-------------------" + resultJSON.toJSONString());
+	  JSONArray communities = (JSONArray) resultJSON.get("communities_collection");
+	  System.out.println("-------------------" + communities.toJSONString());
+	  assertEquals(1, communities.size());
 	  /*
 	   {"entityPrefix": "communities", "communities_collection": [
 			{
@@ -66,5 +75,5 @@ public class CommunityApiTest extends RestApiBaseTest {
 			}
 		]}
 	   */
-  }
+  	}
 }
