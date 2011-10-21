@@ -7,15 +7,20 @@
  */
 
 package uk.ac.jorum.integration.retrieval;
-import uk.ac.jorum.integration.RestApiBaseTest;
 
-import org.junit.Test;
-import static org.junit.Assert.*;
-import static org.junit.matchers.JUnitMatchers.*;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
+import static org.junit.matchers.JUnitMatchers.containsString;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
+import org.junit.Test;
+
+import uk.ac.jorum.integration.RestApiBaseTest;
+import static uk.ac.jorum.integration.matchers.ContainsJSONKey.*;
 
 public class CommunityApiTest extends RestApiBaseTest {
 
@@ -30,14 +35,14 @@ public class CommunityApiTest extends RestApiBaseTest {
   	public void emptyCommunitiesListStatusCode() throws Exception{
 	  loadFixture("emptyDatabase");
 	  int result = getResponseCode("/communities", "");
-	  assertEquals("200 is observed behaviour, should really be 204", 200, result);
+	  assertThat("200 is observed behaviour, should really be 204", result, is(equalTo(200)));
   	}
 
   @Test
 	public void communityListWithOneTopLevelCommunityStatusCode() throws Exception{
 	  loadFixture("singleTopLevelCommunityDatabase");
 	  int result = getResponseCode("/communities", "");
-	  assertEquals(200, result);
+	  assertThat(result, is(equalTo(200)));
 	}
   
   @Test
@@ -45,10 +50,9 @@ public class CommunityApiTest extends RestApiBaseTest {
 	  loadFixture("singleTopLevelCommunityDatabase");
 	  String result = makeRequest("/communities");
 	  JSONObject resultJSON = (JSONObject) JSONValue.parse(result);
-	  System.out.println("-------------------" + resultJSON.toJSONString());
-	  JSONArray communities = (JSONArray) resultJSON.get("communities_collection");
-	  System.out.println("-------------------" + communities.toJSONString());
-	  assertEquals(1, communities.size());
+	  JSONArray communityList = (JSONArray) resultJSON.get("communities_collection");
+	  assertThat(communityList.size(), is(equalTo(1)));
+	  
 	  /*
 	   {"entityPrefix": "communities", "communities_collection": [
 			{
@@ -76,4 +80,20 @@ public class CommunityApiTest extends RestApiBaseTest {
 		]}
 	   */
   	}
+  
+  @Test
+  	public void communityListItemStructure() throws Exception {
+	  loadFixture("singleTopLevelCommunityDatabase");
+	  String result = makeRequest("/communities");
+	  JSONObject resultJSON = (JSONObject) JSONValue.parse(result);
+	  JSONArray communityList = (JSONArray) resultJSON.get("communities_collection");
+	  JSONObject community = (JSONObject) communityList.get(0);
+	  Long two = new Long(2);
+	  
+	  assertThat(community, containsJSONKey("id", withValue(two)));
+	  assertThat(community, containsJSONKey("introductoryText", withValue("Introductory text for community no 1")));
+	  assertThat(community, containsJSONKey("entityReference", withValue("/communities/2")));
+	  assertThat(community, containsJSONKey("entityURL", withValue("http://localhost:8080/dspace-rest/communities/2")));
+  	}
+  
 }

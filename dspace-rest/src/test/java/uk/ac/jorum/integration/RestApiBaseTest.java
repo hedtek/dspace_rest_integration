@@ -8,23 +8,21 @@
 
 package uk.ac.jorum.integration;
 
-import org.junit.Before;
-import org.junit.After;
-import org.junit.BeforeClass;
-import org.junit.AfterClass;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.HttpClient;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.client.utils.URIUtils;
-import java.net.URI;
-import org.dspace.storage.rdbms.DatabaseManager;
-import org.dspace.core.ConfigurationManager;
-import org.dspace.browse.IndexBrowse;
 import java.io.File;
 import java.io.FileReader;
+import java.net.URI;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.utils.URIUtils;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.dspace.core.ConfigurationManager;
+import org.dspace.storage.rdbms.DatabaseManager;
+import org.junit.After;
+import org.junit.Before;
 
 public abstract class RestApiBaseTest {
   private static String apiHost = "localhost";
