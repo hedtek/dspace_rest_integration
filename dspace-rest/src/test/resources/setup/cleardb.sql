@@ -29,6 +29,12 @@ DROP VIEW Community2Item;
 DROP VIEW DCValue;
 
 -- Then the tables
+DROP TABLE bi_2_dis;
+DROP TABLE bi_2_dmap;
+DROP TABLE bi_4_dis;
+DROP TABLE bi_4_dmap;
+DROP TABLE bi_item;
+DROP TABLE bi_withdrawn;
 DROP TABLE collection_item_count;
 DROP TABLE community_item_count;
 DROP TABLE checksum_history;
@@ -75,6 +81,12 @@ DROP TABLE FileExtension;
 DROP TABLE BitstreamFormatRegistry;
 
 -- Now drop the sequences for ID (primary key) creation
+DROP SEQUENCE bi_2_dis_seq;
+DROP SEQUENCE bi_2_dmap_seq;
+DROP SEQUENCE bi_4_dis_seq;
+DROP SEQUENCE bi_4_dmap_seq;
+DROP SEQUENCE bi_item_seq;
+DROP SEQUENCE bi_withdrawn_seq;
 DROP SEQUENCE bitstreamformatregistry_seq;
 DROP SEQUENCE fileextension_seq;
 DROP SEQUENCE bitstream_seq;

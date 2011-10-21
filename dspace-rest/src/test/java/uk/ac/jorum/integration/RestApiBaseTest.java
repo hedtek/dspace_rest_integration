@@ -70,11 +70,12 @@ public abstract class RestApiBaseTest {
 
   protected static void loadDatabase(String filename) throws Exception {
     ConfigurationManager.loadConfig("src/test/resources/config/dspace-integ-testrun.cfg");
+    System.out.println("Loading database file " + filename);
     DatabaseManager.loadSql(new FileReader(new File(filename).getCanonicalPath()));
   }
 
   protected void loadFixture(String fixtureName) throws Exception {
-    loadDatabase("src/test/resources/fixtures/truncate.sql");
+    loadDatabase("src/test/resources/setup/cleardb.sql");
     loadDatabase("src/test/resources/fixtures/" + fixtureName + ".sql");
   }
 }
