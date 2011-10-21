@@ -91,9 +91,12 @@ public class CommunityApiTest extends RestApiBaseTest {
 	  Long two = new Long(2);
 	  
 	  assertThat(community, containsJSONKey("id", withValue(two)));
+	  assertThat(community, containsJSONKey("name", withValue("Community no 1")));
 	  assertThat(community, containsJSONKey("introductoryText", withValue("Introductory text for community no 1")));
 	  assertThat(community, containsJSONKey("entityReference", withValue("/communities/2")));
 	  assertThat(community, containsJSONKey("entityURL", withValue("http://localhost:8080/dspace-rest/communities/2")));
+	  assertThat(community, containsJSONKey("parentCommunity", withValue(null)));
+	  assertThat(community, containsJSONKey("entityId"));
+	  assertThat(community, containsJSONKey("entityTitle"));
   	}
-  
 }
