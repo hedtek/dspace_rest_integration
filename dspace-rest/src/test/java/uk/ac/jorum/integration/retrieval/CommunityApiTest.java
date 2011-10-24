@@ -10,9 +10,12 @@ package uk.ac.jorum.integration.retrieval;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 import static org.junit.matchers.JUnitMatchers.containsString;
+import static uk.ac.jorum.integration.matchers.ContainsJSONKey.containsJSONKey;
+import static uk.ac.jorum.integration.matchers.ContainsJSONKey.withValue;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -20,7 +23,6 @@ import org.json.simple.JSONValue;
 import org.junit.Test;
 
 import uk.ac.jorum.integration.RestApiBaseTest;
-import static uk.ac.jorum.integration.matchers.ContainsJSONKey.*;
 
 public class CommunityApiTest extends RestApiBaseTest {
 
@@ -30,7 +32,7 @@ public class CommunityApiTest extends RestApiBaseTest {
       String result = makeRequest("/communities");
       assertThat(result, containsString("\"communities_collection\": [\n\n]}"));
     }
-  
+
   @Test
   	public void emptyCommunitiesListStatusCode() throws Exception{
 	  loadFixture("emptyDatabase");
@@ -61,8 +63,8 @@ public class CommunityApiTest extends RestApiBaseTest {
 			  "collections": [],
 			  "copyrightText": "Copyright information",
 			  "countItems": 0,
-			  "handle": "123456789\/1",
-			  "id": 1,
+			  "handle": "123456789\/2",
+			  "id": 2,
 			  "introductoryText": "Introductory text for community no 1",
 			  "logo": null,
 			  "name": "Community no 1",
@@ -72,10 +74,10 @@ public class CommunityApiTest extends RestApiBaseTest {
 			  "sidebarText": "Side bar text for community 1",
 			  "subCommunities": [],
 			  "type": 4,
-			  "entityReference": "\/communities\/1",
-			  "entityURL": "http:\/\/localhost:8080\/rest\/communities\/1",
-			  "entityId": "1",
-			  "entityTitle": "123456789\/1"
+			  "entityReference": "\/communities\/2",
+			  "entityURL": "http:\/\/localhost:8080\/rest\/communities\/2",
+			  "entityId": "2",
+			  "entityTitle": "123456789\/2"
 			}
 		]}
 	   */
@@ -91,12 +93,51 @@ public class CommunityApiTest extends RestApiBaseTest {
 	  Long two = new Long(2);
 	  
 	  assertThat(community, containsJSONKey("id", withValue(two)));
+	  assertThat(community, containsJSONKey("handle", withValue("123456789/2")));
 	  assertThat(community, containsJSONKey("name", withValue("Community no 1")));
 	  assertThat(community, containsJSONKey("introductoryText", withValue("Introductory text for community no 1")));
+ 	  assertThat(community, containsJSONKey("parentCommunity", withValue(null)));
+	  assertThat(community, containsJSONKey("recentSubmissions"));
+	  assertThat(community, containsJSONKey("shortDescription"));
+	  assertThat(community, containsJSONKey("sidebarText"));
+	  assertThat(community, containsJSONKey("subCommunities"));
+	  assertThat(community, containsJSONKey("type"));
+	  assertThat(community, containsJSONKey("administrators"));
+	  assertThat(community, containsJSONKey("canEdit", withValue(false)));
+	  assertThat(community, containsJSONKey("collections"));
+	  assertThat(community, containsJSONKey("copyrightText"));
+	  assertThat(community, containsJSONKey("countItems"));
 	  assertThat(community, containsJSONKey("entityReference", withValue("/communities/2")));
 	  assertThat(community, containsJSONKey("entityURL", withValue("http://localhost:8080/dspace-rest/communities/2")));
-	  assertThat(community, containsJSONKey("parentCommunity", withValue(null)));
 	  assertThat(community, containsJSONKey("entityId"));
 	  assertThat(community, containsJSONKey("entityTitle"));
+  	}
+
+  @Test
+	public void communityListWithIdOnly() throws Exception {
+	  loadFixture("singleTopLevelCommunityDatabase");
+	  String result = makeRequest("/communities", "idOnly=true");
+	  JSONObject resultJSON = (JSONObject) JSONValue.parse(result);
+	  JSONArray communityList = (JSONArray) resultJSON.get("communities_collection");
+	  JSONObject community = (JSONObject) communityList.get(0);
+	  Long two = new Long(2);
+	  assertThat(community, containsJSONKey("id", withValue(two)));
+	  assertThat(community, not(containsJSONKey("name")));
+	  assertThat(community, not(containsJSONKey("introductoryText")));
+	  assertThat(community, containsJSONKey("entityReference", withValue("/communities/2")));
+	  assertThat(community, containsJSONKey("entityURL", withValue("http://localhost:8080/dspace-rest/communities/2")));
+	  assertThat(community, not(containsJSONKey("parentCommunity")));
+	  assertThat(community, containsJSONKey("entityId"));
+	  assertThat(community, not(containsJSONKey("entityTitle")));
+	}
+
+  
+  @Test
+  	public void communityListWithMoreThanOneCommunity() throws Exception {
+	  loadFixture("twoTopLevelCommunitiesDatabase");
+	  String result = makeRequest("/communities");
+	  JSONObject resultJSON = (JSONObject) JSONValue.parse(result);
+	  JSONArray communityList = (JSONArray) resultJSON.get("communities_collection");
+	  assertEquals(2, communityList.size());
   	}
 }
