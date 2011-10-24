@@ -32,6 +32,9 @@ public class CommunityApiTest extends RestApiBaseTest {
       startJetty();
     }
 
+  private static final Long TWO = new Long(2);
+  private static final Long FOUR = new Long(4);
+  
   @Test
     public void emptyCommunitiesList() throws Exception {
       String result = makeRequest("/communities");
@@ -94,9 +97,8 @@ public class CommunityApiTest extends RestApiBaseTest {
 	  JSONObject resultJSON = (JSONObject) JSONValue.parse(result);
 	  JSONArray communityList = (JSONArray) resultJSON.get("communities_collection");
 	  JSONObject community = (JSONObject) communityList.get(0);
-	  Long two = new Long(2);
-	  
-	  assertThat(community, containsJSONKey("id", withValue(two)));
+
+	  assertThat(community, containsJSONKey("id", withValue(TWO)));
 	  assertThat(community, containsJSONKey("handle", withValue("123456789/2")));
 	  assertThat(community, containsJSONKey("name", withValue("Community no 1")));
 	  assertThat(community, containsJSONKey("introductoryText", withValue("Introductory text for community no 1")));
@@ -124,8 +126,7 @@ public class CommunityApiTest extends RestApiBaseTest {
 	  JSONObject resultJSON = (JSONObject) JSONValue.parse(result);
 	  JSONArray communityList = (JSONArray) resultJSON.get("communities_collection");
 	  JSONObject community = (JSONObject) communityList.get(0);
-	  Long two = new Long(2);
-	  assertThat(community, containsJSONKey("id", withValue(two)));
+	  assertThat(community, containsJSONKey("id", withValue(TWO)));
 	  assertThat(community, not(containsJSONKey("name")));
 	  assertThat(community, not(containsJSONKey("introductoryText")));
 	  assertThat(community, containsJSONKey("entityReference", withValue("/communities/2")));
@@ -144,4 +145,47 @@ public class CommunityApiTest extends RestApiBaseTest {
 	  JSONArray communityList = (JSONArray) resultJSON.get("communities_collection");
 	  assertEquals(2, communityList.size());
   	}
+  
+  @Test
+	public void subCommunityNotShownInTopLevelList() throws Exception {
+	  loadFixture("subCommunityDatabase");
+	  String result = makeRequest("/communities");
+	  JSONObject resultJSON = (JSONObject) JSONValue.parse(result);
+	  JSONArray communityList = (JSONArray) resultJSON.get("communities_collection");
+	  assertEquals(1, communityList.size());
+	}
+
+  @Test
+	public void subCommunityIsShownInCompleteList() throws Exception {
+	  loadFixture("subCommunityDatabase");
+	  String result = makeRequest("/communities", "topLevelOnly=false");
+	  JSONObject resultJSON = (JSONObject) JSONValue.parse(result);
+	  JSONArray communityList = (JSONArray) resultJSON.get("communities_collection");
+	  assertEquals(2, communityList.size());
+	}
+
+  @Test
+	public void subCommunityHasParentInformation() throws Exception {
+	  loadFixture("subCommunityDatabase");
+	  String result = makeRequest("/communities", "topLevelOnly=false");
+	  JSONObject resultJSON = (JSONObject) JSONValue.parse(result);
+	  JSONArray communityList = (JSONArray) resultJSON.get("communities_collection");
+	  
+	  JSONObject community = (JSONObject) communityList.get(1);
+	  JSONObject parentCommunity = (JSONObject) community.get("parentCommunity");
+	  assertThat(parentCommunity, containsJSONKey("id", withValue(TWO)));
+	}
+  
+  @Test
+	public void topLevelCommunityHasSubCommunityInformation() throws Exception {
+	  loadFixture("subCommunityDatabase");
+	  String result = makeRequest("/communities", "topLevelOnly=false");
+	  JSONObject resultJSON = (JSONObject) JSONValue.parse(result);
+	  JSONArray communityList = (JSONArray) resultJSON.get("communities_collection");
+	  
+	  JSONObject community = (JSONObject) communityList.get(0);
+	  JSONArray subCommunitiesList = (JSONArray) community.get("subCommunities");
+	  JSONObject subCommunity = (JSONObject) subCommunitiesList.get(0);
+	  assertThat(subCommunity, containsJSONKey("id", withValue(FOUR)));
+	}
 }

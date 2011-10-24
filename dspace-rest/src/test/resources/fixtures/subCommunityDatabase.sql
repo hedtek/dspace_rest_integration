@@ -2,16 +2,8 @@
 -- PostgreSQL database dump
 --
 
-SET statement_timeout = 0;
-SET client_encoding = 'UTF8';
-SET standard_conforming_strings = off;
-SET check_function_bodies = false;
-SET client_min_messages = warning;
-SET escape_string_warning = off;
 
-SET SESSION AUTHORIZATION 'dspace';
 
-SET search_path = public, pg_catalog;
 
 --
 -- Name: getnextid(character varying); Type: FUNCTION; Schema: public; Owner: dspace
@@ -22,9 +14,7 @@ CREATE FUNCTION getnextid(character varying) RETURNS integer
     AS $_$SELECT CAST (nextval($1 || '_seq') AS INTEGER) AS RESULT $_$;
 
 
-SET default_tablespace = '';
 
-SET default_with_oids = false;
 
 --
 -- Name: bi_2_dis; Type: TABLE; Schema: public; Owner: dspace; Tablespace: 
@@ -3179,16 +3169,11 @@ ALTER TABLE ONLY workspaceitem
     ADD CONSTRAINT workspaceitem_item_id_fkey FOREIGN KEY (item_id) REFERENCES item(item_id);
 
 
-SET SESSION AUTHORIZATION 'postgres';
 
 --
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
 
-REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM postgres;
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 --
