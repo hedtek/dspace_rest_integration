@@ -102,6 +102,6 @@ public abstract class RestApiBaseTest {
       server.setStopAtShutdown(true);
        
       server.start();
-      while (!server.isStarted()) {}
+      while (!wac.isStarted()) {}
   }
 }
