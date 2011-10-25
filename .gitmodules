@@ -1,0 +1,3 @@
+[submodule "dspace-rest"]
+	path = dspace-rest
+	url = git@github.com:hedtek/dspace-rest.git
