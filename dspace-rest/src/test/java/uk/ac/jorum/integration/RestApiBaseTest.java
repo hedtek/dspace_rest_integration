@@ -67,7 +67,7 @@ public abstract class RestApiBaseTest {
   }
 
   protected static void loadDatabase(String filename) throws Exception {
-    ConfigurationManager.loadConfig("src/test/resources/config/dspace-integ-testrun.cfg");
+    ConfigurationManager.loadConfig("target/testResources/config/dspace.cfg");
     System.out.println("Loading database file " + filename);
     DatabaseManager.loadSql(new FileReader(new File(filename).getCanonicalPath()));
   }

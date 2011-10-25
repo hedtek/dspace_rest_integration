@@ -12,10 +12,6 @@
       <url>http://www.dspace.org</url>
    </organization>
 
-   <properties>
-     <rest.webxml.loc>base</rest.webxml.loc>
-   </properties>
-
    <build>
       <plugins>
          <!-- 

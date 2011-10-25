@@ -33,7 +33,7 @@
   <!-- Configuration Information -->
   <context-param>
     <param-name>dspace-config</param-name>
-    <param-value>dspace-rest/src/test/resources/config/dspace-integ.cfg</param-value>
+    <param-value>${basedir}/target/testResources/config/dspace.cfg</param-value>
   </context-param>
 
   <context-param>
