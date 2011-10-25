@@ -8,24 +8,21 @@
 
 package org.dspace.rest.entities;
 
+import org.dspace.content.*;
+import org.dspace.content.Collection;
 import org.sakaiproject.entitybus.entityprovider.annotations.EntityFieldRequired;
 import org.sakaiproject.entitybus.entityprovider.annotations.EntityId;
-import org.dspace.content.Item;
-import org.dspace.content.Bundle;
 import org.sakaiproject.entitybus.exception.EntityException;
 import org.dspace.authorize.AuthorizeException;
-import org.dspace.content.Bitstream;
-import java.util.Map;
-import org.dspace.content.Collection;
-import org.dspace.content.Community;
+
+import java.util.*;
+
 import org.dspace.content.crosswalk.*;
 import org.sakaiproject.entitybus.EntityView;
 import org.sakaiproject.entitybus.EntityReference;
 import org.dspace.core.Context;
-import java.util.List;
-import java.util.ArrayList;
+
 import java.sql.SQLException;
-import java.util.Date;
 import java.io.StringWriter;
 import org.jdom.output.XMLOutputter;
 import org.jdom.Element;
@@ -52,7 +49,8 @@ public class ItemEntity extends ItemEntityId {
     List<Object> bitstreams = new ArrayList<Object>();
     List<Object> collections = new ArrayList<Object>();
     List<Object> communities = new ArrayList<Object>();
-    String metadata;
+    List<Object> metadata = new ArrayList<Object>();
+    //String metadata;
     Date lastModified;
     Object owningCollection;
     boolean isArchived, isWithdrawn;
@@ -71,7 +69,7 @@ public class ItemEntity extends ItemEntityId {
         this.isArchived = res.isArchived();
         this.isArchived = res.isWithdrawn();
         this.submitter = new UserEntity(res.getSubmitter());
-        this.metadata = prepareMetadata(res);
+
         Bundle[] bun = res.getBundles();
         Bitstream[] bst = res.getNonInternalBitstreams();
         Collection[] col = res.getCollections();
@@ -98,6 +96,13 @@ public class ItemEntity extends ItemEntityId {
         for (Community c : com) {
             this.communities.add(includeFull ? new CommunityEntity(c, level, uparams) : new CommunityEntityId(c));
         }
+
+        DCValue[] dcValues = res.getMetadata(Item.ANY, Item.ANY, Item.ANY, Item.ANY);
+        for (DCValue dcValue : dcValues)
+        {
+            this.metadata.add(includeFull ? new MetadataEntity(dcValue, level, uparams) : new MetadataEntityId(dcValue));
+        }
+
         context.complete();
     }
 
@@ -122,7 +127,6 @@ public class ItemEntity extends ItemEntityId {
         this.isArchived = item.isArchived();
         this.isWithdrawn = item.isWithdrawn();
         this.submitter = new UserEntity(item.getSubmitter());
-        this.metadata = prepareMetadata(item);
 
         Bundle[] bun = item.getBundles();
         Bitstream[] bst = item.getNonInternalBitstreams();
@@ -140,6 +144,13 @@ public class ItemEntity extends ItemEntityId {
         for (Community c : com) {
             this.communities.add(includeFull ? new CommunityEntity(c, level, uparams) : new CommunityEntityId(c));
         }
+
+        DCValue[] dcValues = item.getMetadata(Item.ANY, Item.ANY, Item.ANY, Item.ANY);
+        for (DCValue dcValue : dcValues)
+        {
+            this.metadata.add(includeFull ? new MetadataEntity(dcValue, level, uparams) : new MetadataEntityId(dcValue));
+        }
+
     }
 
     public ItemEntity() {
@@ -154,9 +165,10 @@ public class ItemEntity extends ItemEntityId {
         this.bitstreams.add(includeFull ? new BitstreamEntity() : new BundleEntityId());
         this.collections.add(includeFull ? new CollectionEntity() : new BundleEntityId());
         this.communities.add(includeFull ? new CommunityEntity() : new BundleEntityId());
-        this.metadata = "";
+        this.metadata.add(includeFull ? new MetadataEntity() : new MetadataEntityId());
     }
 
+    /*
     // taken from jspui handle implementation
     // it should be probably properly formated, as HashMap
     // for example but currently HashMap is not supported
@@ -186,7 +198,16 @@ public class ItemEntity extends ItemEntityId {
         return headMetadata;
     }
 
+
+
     public String getMetadata() {
+        return this.metadata;
+    }
+    */
+
+
+    public List getMetadata()
+    {
         return this.metadata;
     }
 
