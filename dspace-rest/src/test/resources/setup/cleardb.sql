@@ -29,10 +29,10 @@ DROP VIEW Community2Item;
 DROP VIEW DCValue;
 
 -- Then the tables
-DROP TABLE bi_2_dis;
 DROP TABLE bi_2_dmap;
-DROP TABLE bi_4_dis;
 DROP TABLE bi_4_dmap;
+DROP TABLE bi_2_dis;
+DROP TABLE bi_4_dis;
 DROP TABLE bi_item;
 DROP TABLE bi_withdrawn;
 DROP TABLE collection_item_count;

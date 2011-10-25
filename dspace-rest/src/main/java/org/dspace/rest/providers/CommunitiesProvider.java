@@ -142,6 +142,7 @@ public class CommunitiesProvider extends AbstractBaseProvider implements CoreEnt
 
     @Override
     public Object getEntity(EntityReference reference) {
+    	System.out.println("My reference is " +reference.getId());
         log.info(userInfo() + "get_entity:" + reference.getId());
         String segments[] = {};
 
