@@ -23,13 +23,27 @@ import org.dspace.core.ConfigurationManager;
 import org.dspace.storage.rdbms.DatabaseManager;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.mortbay.jetty.Server;
+import org.mortbay.jetty.nio.SelectChannelConnector;
+import org.mortbay.jetty.Connector;
+import org.mortbay.jetty.webapp.WebAppContext;
 
 public abstract class RestApiBaseTest {
   private static String apiHost = "localhost";
   private static String apiMountPoint = "/dspace-rest";
   private static String apiProtocol = "http";
   private static int apiPort = 9090;
+  private static String resourceBase = "target/testResources";
+  private static String webXmlLocation = "target/testWebapp/WEB-INF/web.xml";
+  private static Server server;
   private HttpClient client;
+
+  @AfterClass
+    public static void destroyFixture() throws Exception {
+      server.stop();
+    }
 
   @Before
     public void ApiSetup() {
@@ -66,14 +80,34 @@ public abstract class RestApiBaseTest {
 	return getResponseCode(endpoint, "");
   }
 
-  protected static void loadDatabase(String filename) throws Exception {
+  private static void loadDatabase(String filename) throws Exception {
     ConfigurationManager.loadConfig("target/testResources/config/dspace.cfg");
     System.out.println("Loading database file " + filename);
     DatabaseManager.loadSql(new FileReader(new File(filename).getCanonicalPath()));
   }
 
-  protected void loadFixture(String fixtureName) throws Exception {
+  protected static void loadFixture(String fixtureName) throws Exception {
     loadDatabase("src/test/resources/setup/cleardb.sql");
     loadDatabase("src/test/resources/fixtures/" + fixtureName + ".sql");
+  }
+
+  protected static void startJetty() throws Exception {
+    System.out.println("Starting jetty");
+      server = new Server();
+      Connector connector = new SelectChannelConnector();
+      connector.setPort(apiPort);
+      connector.setHost(apiHost);
+      server.addConnector(connector);
+       
+      WebAppContext wac = new WebAppContext();
+      wac.setContextPath(apiMountPoint);
+      wac.setResourceBase(resourceBase);
+      wac.setDescriptor(webXmlLocation);
+      wac.setParentLoaderPriority(true);
+      server.setHandler(wac);
+      server.setStopAtShutdown(true);
+       
+      server.start();
+      while (!server.isStarted()) {System.out.println("Jetty is starting");}
   }
 }
